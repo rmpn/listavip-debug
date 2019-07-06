@@ -14,9 +14,8 @@ public class FabricaDeConexao {
 
 			Class.forName(driverName);
 
-			String serverName = "localhost:3306";
+			String serverName = "localhost";
 			
-			String porta = ":3306";
 
 			String mydatabase = "listavip"; 
             // + "?useSSL=false"

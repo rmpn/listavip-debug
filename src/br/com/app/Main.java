@@ -16,7 +16,7 @@ public class Main {
 		ConvidadoService service = new ConvidadoService();
 		convidados = service.obterTodos();
 		for (Convidado convidado : convidados) {
-			
+			System.out.println("Mostrando Lista de Convidados ...");
 			System.out.println(convidado.getNome());
 			
 		}
