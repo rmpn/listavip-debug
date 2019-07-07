@@ -7,20 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.DB;
+
 public class ConvidadoRepository {
+
+	Connection conexao = null;
 
 	public List<Convidado> obterTodos() {
 
 		try {
 
-			Connection conexao = new FabricaDeConexao().obterConexao();
+			conexao = DB.obterConexao();
+			//conexao = DB.getConnection();
 
 			String select = "select * from convidado";
 
 			PreparedStatement preparedStatement = conexao.prepareStatement(select);
-			
+
 			ResultSet rs = preparedStatement.executeQuery();
-			
+
 			List<Convidado> listaDeConvidados = new ArrayList<>();
 
 			while (rs.next()) {
@@ -29,39 +34,61 @@ public class ConvidadoRepository {
 				String nome = rs.getString("nome");
 				String email = rs.getString("email");
 				String telefone = rs.getString("telefone");
-				
+
 				Convidado convidado = new Convidado(id, nome, email, telefone);
 				listaDeConvidados.add(convidado);
 
-
 			}
-			
-			conexao.close();
+
 			return listaDeConvidados;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+
+			try {
+				conexao.close();
+			} catch (SQLException e) {
+
+				System.out.println(e.getMessage());
+			}
+
 		}
 
 		return null;
 	}
 
-	public void salvar(Convidado convidado){
-		
+	public void salvar(Convidado convidado) {
+
 		try {
 
-			Connection conexao = new FabricaDeConexao().obterConexao();
+			// Connection conexao = new FabricaDeConexao().obterConexao();
+			// conexao = DB.getConnection();
+			conexao = DB.obterConexao();
 
 			String insert = "INSERT INTO convidado(nome, email, telefone) VALUES(?, ?, ?);";
-			
+
 			PreparedStatement preparedStatement = conexao.prepareStatement(insert);
 			preparedStatement.setString(1, convidado.getNome());
 			preparedStatement.setString(2, convidado.getEmail());
 			preparedStatement.setString(3, convidado.getTelefone());
-			
+
 			preparedStatement.execute();
-			
-			conexao.close();
+
 		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			try {
+				conexao.close();
+
+			} catch (SQLException e) {
+
+				System.out.println(e.getMessage());
+			}
+
 		}
 
 	}

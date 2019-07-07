@@ -14,12 +14,11 @@ public class FabricaDeConexao {
 
 			Class.forName(driverName);
 
-			String serverName = "localhost";
-			
+			String serverName = "localhost:3306";
 
-			String mydatabase = "listavip"; 
-            // + "?useSSL=false"
-			String url = "jdbc:mysql://" + serverName + "/" + mydatabase+ "?useSSL=false";
+			String mydatabase = "listavip";
+
+			String url = "jdbc:mysql://" + serverName + "/" + mydatabase + "?useSSL=false";
 
 			String username = "root";
 
@@ -32,16 +31,15 @@ public class FabricaDeConexao {
 		} catch (ClassNotFoundException e) {
 
 			System.out.println(e.getMessage());
-			return null;
-			
 
 		} catch (SQLException e) {
 
 			System.out.println(e.getMessage());
-			return null;
+			
 
 		}
 
+		return null;
 	}
 
 }

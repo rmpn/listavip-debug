@@ -19,7 +19,7 @@
 					<tr>
 						<th>Nome</th>
 						<th>Email</th>
-						<th>Nome</th>
+						<th>Telefone</th>
 					</tr>
 				</thead>
 				<c:forEach var="convidado" items="${convidados}">
